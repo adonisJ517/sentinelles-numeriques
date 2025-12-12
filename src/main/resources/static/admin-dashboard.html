@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html class="dark" lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tableau de Bord Administrateur</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#137fec",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+              "surface-dark": "#1c2630",
+              "surface-light": "#ffffff",
+            },
+            fontFamily: {
+              display: ["Public Sans", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display antialiased overflow-x-hidden pb-20"
+  >
+    <div
+      class="sticky top-0 z-50 flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between border-b border-gray-200 dark:border-gray-800"
+    >
+      <div class="flex items-center gap-3">
+        <div class="relative">
+          <div
+            class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-primary/30"
+            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCb4d3peZymLDCW3DmnUULoNumdsxPWNpAyj6E79Wd7K040Jp3rphQlV4TuK2sIS0_kRnuNe0ZnTnRlcvz40W3rzbNpdErDGUvpmvOb35evPQ0yKcfqTNlq_ZROWYcYIot1lLruRF_LB_j7lFgNSdgS93icG3nUt86--OV0o_jiMNvcX6DSWSFuKrvh8j7xkVsK_Mfa9jbG2JOEwmq7luvziMyU-tROvCo1fa0-MBmyAbJlkHhYkzb71QhaTXhmuF9lqQPnDK3F-yw');"
+          ></div>
+        </div>
+        <div class="flex flex-col">
+          <h2 class="text-base font-bold leading-tight">Admin. Principal</h2>
+          <span class="text-xs text-gray-500 dark:text-gray-400"
+            >CDG - Terminal 2E</span
+          >
+        </div>
+      </div>
+      <div class="flex items-center justify-end gap-2">
+        <button
+          class="flex items-center justify-center rounded-full size-10 bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors relative"
+        >
+          <span class="material-symbols-outlined text-[#111418] dark:text-white"
+            >notifications</span
+          >
+          <span
+            class="absolute top-2 right-2 size-2 bg-red-500 rounded-full animate-pulse"
+          ></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="px-4 pt-6 pb-2">
+      <h1 class="text-2xl font-bold leading-tight">Vue d'ensemble</h1>
+      <div class="flex items-center gap-2 mt-1">
+        <span class="material-symbols-outlined text-gray-400 text-sm"
+          >update</span
+        >
+        <p class="text-gray-500 dark:text-gray-400 text-sm font-normal">
+          Mise à jour : <span id="dashboard-last-update">...</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3 p-4">
+      <div
+        class="flex flex-col gap-2 rounded-xl p-4 bg-surface-light dark:bg-surface-dark shadow-sm border border-gray-100 dark:border-gray-800"
+      >
+        <div class="flex justify-between items-start">
+          <div class="p-2 bg-primary/10 rounded-lg text-primary">
+            <span class="material-symbols-outlined">flight_takeoff</span>
+          </div>
+        </div>
+        <div>
+          <p class="text-gray-500 text-xs font-medium uppercase mt-2">
+            Vols (total)
+          </p>
+          <p
+            id="stat-total-flights"
+            class="text-[#111418] dark:text-white text-2xl font-bold"
+          >
+            0
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="flex flex-col gap-2 rounded-xl p-4 bg-surface-light dark:bg-surface-dark shadow-sm border border-gray-100 dark:border-gray-800"
+      >
+        <div class="flex justify-between items-start">
+          <div class="p-2 bg-blue-500/10 rounded-lg text-blue-400">
+            <span class="material-symbols-outlined">groups</span>
+          </div>
+        </div>
+        <div>
+          <p class="text-gray-500 text-xs font-medium uppercase mt-2">
+            Utilisateurs
+          </p>
+          <p
+            id="stat-total-users"
+            class="text-[#111418] dark:text-white text-2xl font-bold"
+          >
+            0
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="flex flex-col gap-2 rounded-xl p-4 bg-surface-light dark:bg-surface-dark shadow-sm border border-red-500/30 relative overflow-hidden"
+      >
+        <div class="flex justify-between items-start z-10">
+          <div class="p-2 bg-red-500/10 rounded-lg text-red-500">
+            <span class="material-symbols-outlined">warning</span>
+          </div>
+        </div>
+        <div class="z-10">
+          <p class="text-gray-500 text-xs font-medium uppercase mt-2">
+            Incidents
+          </p>
+          <p
+            id="stat-total-incidents"
+            class="text-[#111418] dark:text-white text-2xl font-bold"
+          >
+            0
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="flex flex-col gap-2 rounded-xl p-4 bg-surface-light dark:bg-surface-dark shadow-sm border border-gray-100 dark:border-gray-800"
+      >
+        <div class="flex justify-between items-start">
+          <div class="p-2 bg-purple-500/10 rounded-lg text-purple-400">
+            <span class="material-symbols-outlined">luggage</span>
+          </div>
+        </div>
+        <div>
+          <p class="text-gray-500 text-xs font-medium uppercase mt-2">
+            Litiges bagages
+          </p>
+          <p
+            id="stat-total-baggage"
+            class="text-[#111418] dark:text-white text-2xl font-bold"
+          >
+            0
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      async function loadDashboard() {
+        const lastUpdate = document.getElementById("dashboard-last-update");
+        const flightsEl = document.getElementById("stat-total-flights");
+        const incidentsEl = document.getElementById("stat-total-incidents");
+        const baggageEl = document.getElementById("stat-total-baggage");
+        const usersEl = document.getElementById("stat-total-users");
+
+        try {
+          const res = await fetch("/api/admin/dashboard");
+          if (!res.ok) {
+            throw new Error("Statut HTTP " + res.status);
+          }
+          const data = await res.json();
+          flightsEl.textContent = data.totalFlights ?? 0;
+          incidentsEl.textContent = data.totalIncidents ?? 0;
+          baggageEl.textContent = data.totalBaggageClaims ?? 0;
+          usersEl.textContent = data.totalUsers ?? 0;
+          const now = new Date();
+          lastUpdate.textContent = now.toLocaleString();
+        } catch (e) {
+          console.error("Erreur chargement dashboard", e);
+          lastUpdate.textContent = "Erreur de chargement";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", loadDashboard);
+    </script>
+  </body>
+</html>
